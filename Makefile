@@ -7,4 +7,4 @@ local:
 	sam local start-api
 
 deploy:
-	sam deploy --guided
+	sam build && sam deploy

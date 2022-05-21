@@ -49,7 +49,7 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
 #  HelloWorldAPI:
 #    Description: "API Gateway endpoint URL for Prod environment for First Function"
-#    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+#    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/webhook/"
 #  HelloWorldFunction:
 #    Description: "First Lambda Function ARN"
 #    Value: !GetAtt HelloWorldFunction.Arn
@@ -58,7 +58,7 @@ Outputs:
 #    Value: !GetAtt HelloWorldFunctionRole.Arn
   WebhookAPI:
     Description: "Get - Post"
-    Value: !Sub
+    Value:  !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/webhook"
   WebhookFunction:
     Description: "WebhookFunction ARN"
     Value: !GetAtt  WebhookFunction.Arn
