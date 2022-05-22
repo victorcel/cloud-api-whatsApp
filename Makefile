@@ -1,10 +1,16 @@
-.PHONY: build local deploy
+.PHONY: build local deploy prueba
 
 build:
 	sam build
 
 local:
-	sam local start-api
+	sam build && sam local start-api --env-vars env.json
 
 deploy:
-	sam deploy --guided
+ifeq ("$(token)","")
+	@echo "Escribir el token=xxxxxx"
+else
+	sam build && sam deploy  --parameter-overrides VerifyToken=$(token)
+endif
+
+
