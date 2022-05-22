@@ -4,7 +4,7 @@ build:
 	sam build
 
 local:
-	sam local start-api
+	sam build && sam local start-api --env-vars env.json
 
 deploy:
-	sam build && sam deploy
+	sam build --use-container --container-env-var-file env.json && sam deploy

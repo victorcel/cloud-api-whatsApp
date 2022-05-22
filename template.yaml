@@ -10,6 +10,10 @@ Globals:
   Function:
     Timeout: 5
 
+#Parameters:
+#  VerifyToken:
+#    Type: String
+
 Resources:
 #  HelloWorldFunction:
 #    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -42,6 +46,9 @@ Resources:
           Properties:
             Path: /webhook
             Method: GET
+      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+        Variables:
+          VERIFY_TOKEN: ${}
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
