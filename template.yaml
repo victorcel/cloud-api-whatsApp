@@ -15,28 +15,11 @@ Parameters:
     Type: String
 
 Resources:
-#  HelloWorldFunction:
-#    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-#    Properties:
-#      CodeUri: hello-world/
-#      Handler: hello-world
-#      Runtime: go1.x
-#      Architectures:
-#        - x86_64
-#      Events:
-#        CatchAll:
-#          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-#          Properties:
-#            Path: /hello
-#            Method: GET
-#      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
-#        Variables:
-#          PARAM1: VALUE
-  WebhookFunction:
+  WebhookGetFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: webhook/
-      Handler: webhook
+      CodeUri: webhook-get/
+      Handler: webhook-get
       Runtime: go1.x
       Events:
         CatchAll:
@@ -48,29 +31,33 @@ Resources:
         Variables:
           VERIFY_TOKEN: !Ref VerifyToken
 
+  WebhookPostFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: webhook-post/
+      Handler: webhook-post
+      Runtime: go1.x
+      Events:
+        CatchAll:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /webhook
+            Method: POST
+      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+        Variables:
+          VERIFY_TOKEN: !Ref VerifyToken
+
 Outputs:
-  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
-  # Find out more about other implicit resources you can reference within SAM
-  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-#  HelloWorldAPI:
-#    Description: "API Gateway endpoint URL for Prod environment for First Function"
-#    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/webhook/"
-#  HelloWorldFunction:
-#    Description: "First Lambda Function ARN"
-#    Value: !GetAtt HelloWorldFunction.Arn
-#  HelloWorldFunctionIamRole:
-#    Description: "Implicit IAM Role created for Hello World function"
-#    Value: !GetAtt HelloWorldFunctionRole.Arn
-  WebhookAPI:
+  WebhookGetAPI:
     Description: "Get - Post"
     Value:  !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/webhook"
-  WebhookFunction:
-    Description: "WebhookFunction ARN"
-    Value: !GetAtt  WebhookFunction.Arn
-  WebhookFunctionIamRole:
+  WebhookGetFunction:
+    Description: "WebhookGetFunction ARN"
+    Value: !GetAtt  WebhookGetFunction.Arn
+  WebhookGetFunctionIamRole:
     Description: "Implicit IAM Role created for Webhook function"
-    Value: !GetAtt WebhookFunctionRole.Arn
-  WebhookToken:
+    Value: !GetAtt WebhookGetFunctionRole.Arn
+  WebhookGetToken:
     Description: "Verify Token"
     Value: !Ref VerifyToken
 
