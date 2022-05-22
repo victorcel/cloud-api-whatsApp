@@ -70,4 +70,7 @@ Outputs:
   WebhookFunctionIamRole:
     Description: "Implicit IAM Role created for Webhook function"
     Value: !GetAtt WebhookFunctionRole.Arn
+  WebhookToken:
+    Description: "Verify Token"
+    Value: !Ref VerifyToken
 

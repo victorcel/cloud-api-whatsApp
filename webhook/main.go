@@ -5,7 +5,6 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/go-playground/validator/v10"
-	"log"
 	"net/http"
 	"os"
 )
@@ -42,7 +41,7 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 	}
 
 	token := os.Getenv("VERIFY_TOKEN")
-	log.Println("token=>", token)
+
 	if responseWebhook.HubMode == "subscribe" && token == responseWebhook.HubVerifyToken {
 		return events.APIGatewayProxyResponse{
 			Body:       responseWebhook.HubChallenge,
