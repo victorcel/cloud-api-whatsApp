@@ -46,6 +46,17 @@ Resources:
       Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
         Variables:
           VERIFY_TOKEN: !Ref VerifyToken
+          QUEUE_NAME: !Ref MessageWebhookSqsQueue
+      Policies:
+        - SQSSendMessagePolicy:
+            QueueName:
+              !GetAtt MessageWebhookSqsQueue.QueueName
+  MessageWebhookSqsQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      ContentBasedDeduplication: true
+      QueueName: MessageWebhook.fifo
+      FifoQueue: true
 
 Outputs:
   WebhookGetAPI:

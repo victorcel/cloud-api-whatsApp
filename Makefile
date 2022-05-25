@@ -17,7 +17,7 @@ deploy:
 ifeq ("$(token)","")
 	@echo "Escribir el token=xxxxxx"
 else
-	sam build && sam deploy  --parameter-overrides VerifyToken=$(token)
+	sam build && sam deploy --no-confirm-changeset --parameter-overrides VerifyToken=$(token)
 endif
 
 
